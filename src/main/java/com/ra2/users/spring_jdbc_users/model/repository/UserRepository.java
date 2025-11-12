@@ -29,6 +29,7 @@ public class UserRepository {
             u.setUltimAcces(rs.getTimestamp("ultimAcces"));
             u.setDataCreated(rs.getTimestamp("dataCreated"));
             u.setDataUpdated(rs.getTimestamp("dataUpdated"));
+            u.setImagePath(rs.getString("image_path"));
 
             return u;
         }
@@ -46,7 +47,7 @@ public class UserRepository {
     }
 
     public int save(User u) {
-        String sql = "INSERT INTO users (name, description, email, password, ultimAcces, dataCreated, dataUpdated) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO users (name, description, email, password, ultimAcces, dataCreated, dataUpdated, image_path) VALUES (?,?,?,?,?,?,?,?)";
         Timestamp now = new Timestamp(System.currentTimeMillis());
         return jdbcTemplate.update(sql,
                 u.getName(),
@@ -59,20 +60,20 @@ public class UserRepository {
     }
 
     public int insertUsersBatch() {
-        final String sql = "INSERT INTO users (name, description, email, password, dataCreated, dataUpdated) VALUES (?,?,?,?,?,?)";
+        final String sql = "INSERT INTO users (name, description, email, password, dataCreated, dataUpdated, image_path) VALUES (?,?,?,?,?,?,?)";
         Timestamp now = new Timestamp(System.currentTimeMillis());
 
         List<Object[]> batchArgs = List.of(
-                new Object[]{"Ana", "Admin", "ana@test.com", "1234", now, now},
-                new Object[]{"Bruno", "Gestor", "bruno@test.com", "1234", now, now},
-                new Object[]{"Carla", "Cliente", "carla@test.com", "1234", now, now},
-                new Object[]{"David", "User", "david@test.com", "1234", now, now},
-                new Object[]{"Eva", "User", "eva@test.com", "1234", now, now},
-                new Object[]{"Fabio", "User", "fabio@test.com", "1234", now, now},
-                new Object[]{"Gema", "User", "gema@test.com", "1234", now, now},
-                new Object[]{"Hugo", "User", "hugo@test.com", "1234", now, now},
-                new Object[]{"Irene", "User", "irene@test.com", "1234", now, now},
-                new Object[]{"Jordi", "User", "jordi@test.com", "1234", now, now}
+                new Object[]{"Ana", "Admin", "ana@test.com", "1234", now, now, null},
+                new Object[]{"Bruno", "Gestor", "bruno@test.com", "1234", now, now, null},
+                new Object[]{"Carla", "Cliente", "carla@test.com", "1234", now, now, null},
+                new Object[]{"David", "User", "david@test.com", "1234", now, now, null},
+                new Object[]{"Eva", "User", "eva@test.com", "1234", now, now, null},
+                new Object[]{"Fabio", "User", "fabio@test.com", "1234", now, now, null},
+                new Object[]{"Gema", "User", "gema@test.com", "1234", now, now, null},
+                new Object[]{"Hugo", "User", "hugo@test.com", "1234", now, now, null},
+                new Object[]{"Irene", "User", "irene@test.com", "1234", now, now, null},
+                new Object[]{"Jordi", "User", "jordi@test.com", "1234", now, now, null}
         );
 
         int[] res = jdbcTemplate.batchUpdate(sql, batchArgs);
@@ -101,5 +102,11 @@ public class UserRepository {
     public int delete(Long id) {
         String sql = "DELETE FROM users WHERE id = ?";
         return jdbcTemplate.update(sql, id);
+    }
+
+    public int updateImagePath(Long id, String imagePath) {
+        String sql = "UPDATE users SET image_path=?, dataUpdated=? WHERE id=?";
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        return jdbcTemplate.update(sql, imagePath, now, id);
     }
 }

@@ -10,6 +10,7 @@ public class User {
     private Timestamp ultimAcces;
     private Timestamp dataCreated;
     private Timestamp dataUpdated;
+    private String imagePath;
 
 
     public Long getId() {
@@ -59,6 +60,12 @@ public class User {
     }
     public void setDataUpdated(Timestamp dataUpdated) {
         this.dataUpdated = dataUpdated;
+    }
+    public String getImagePath() { 
+        return imagePath; 
+    }
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath; 
     }
 
 
