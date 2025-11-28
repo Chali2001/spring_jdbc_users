@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import com.ra2.users.spring_jdbc_users.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @RestController
@@ -84,4 +88,26 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+    @PostMapping("/users/upload-csv")
+    public ResponseEntity<?> uploadCsv(@RequestParam MultipartFile csvFile) {
+        try {
+            int inserted = userService.processCsv(csvFile);
+            return ResponseEntity.ok("Registres afegits: " + inserted);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error: " + e.getLocalizedMessage());
+        }
+    }
+    
+    @PostMapping("/users/upload-json")
+    public ResponseEntity<?> uploadJson (@RequestParam("jsonFile") MultipartFile jsonFile) {
+        try {
+            int inserted = userService.processJson(jsonFile);
+            return ResponseEntity.ok("Registre afegits : " + inserted);
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error :" + e.getMessage());
+        }
+    }
+
+    
 }

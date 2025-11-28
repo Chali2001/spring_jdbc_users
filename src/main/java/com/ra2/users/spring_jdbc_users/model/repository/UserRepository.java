@@ -56,7 +56,8 @@ public class UserRepository {
                 u.getPassword(),
                 u.getUltimAcces(),
                 now,
-                now);
+                now,
+                u.getImagePath());
     }
 
     public int insertUsersBatch() {

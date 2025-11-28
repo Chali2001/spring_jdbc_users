@@ -46,8 +46,8 @@ public class User {
     public Timestamp getUltimAcces() {
         return ultimAcces;
     }
-    public void setUltimAcces(Timestamp ultimaAcces) {
-        this.ultimAcces = ultimaAcces;
+    public void setUltimAcces(Timestamp ultimAcces) {
+        this.ultimAcces = ultimAcces;
     }
     public Timestamp getDataCreated() {
         return dataCreated;

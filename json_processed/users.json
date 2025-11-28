@@ -1,0 +1,26 @@
+{
+  "data": {
+    "count": 3,
+    "control":"OK",
+    "users": [
+      {
+        "name": "Ana",
+        "description": "Admin",
+        "email": "ana@test.com",
+        "password": "1234"
+      },
+      {
+        "name": "Bruno",
+        "description": "User",
+        "email": "bruno@test.com",
+        "password": "1234"
+      },
+      {
+        "name": "Carla",
+        "description": "User",
+        "email": "carla@test.com",
+        "password": "1234"
+      }
+    ]
+  }
+}
